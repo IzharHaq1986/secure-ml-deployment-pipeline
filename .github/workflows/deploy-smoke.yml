@@ -18,7 +18,9 @@ jobs:
       # Start the Compose deployment in detached mode
       - name: Start Docker Compose deployment
         run: |
-          docker compose up --build -d
+
+      # Explicitly reference the Compose file to avoid path resolution issues in CI
+          docker compose -f docker-compose.yml up --build -d
 
       # Allow the service a short startup window before validation
       - name: Wait for application startup
@@ -40,4 +42,6 @@ jobs:
       - name: Cleanup deployment
         if: always()
         run: |
-          docker compose down -v
+
+      # Ensure the same Compose file is used during teardown
+          docker compose -f docker-compose.yml down -v
