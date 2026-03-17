@@ -38,9 +38,13 @@ jobs:
           docker logs secure-ml-smoke || true
 
       # Validate that the health endpoint responds successfully
-      - name: Verify health endpoint
-        run: |
-          docker exec secure-ml-smoke curl --fail http://localhost:8000/health
+       - name: Verify health endpoint
+         run: |
+           PORT=$(docker port secure-ml-smoke 8000/tcp | sed 's/.*://')
+           echo "Mapped port: $PORT"
+
+           curl --retry 5 --retry-delay 2 --fail http://127.0.0.1:$PORT/health
+
       # Always clean up the test container
       - name: Cleanup container
         if: always()
