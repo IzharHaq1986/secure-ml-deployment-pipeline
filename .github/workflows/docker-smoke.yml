@@ -1,0 +1,43 @@
+name: Docker Smoke Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  docker-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository contents
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Build the container image from the project Dockerfile
+      - name: Build Docker image
+        run: |
+          docker build -t secure-ml-deployment-pipeline:ci .
+
+      # Start the container in detached mode
+      - name: Run container
+        run: |
+          docker run -d -p 8000:8000 --name secure-ml-smoke secure-ml-deployment-pipeline:ci
+
+      # Give the FastAPI application a few seconds to start
+      - name: Wait for application startup
+        run: |
+          sleep 5
+
+      # Validate that the health endpoint responds successfully
+      - name: Verify health endpoint
+        run: |
+          curl --fail http://localhost:8000/health
+
+      # Always clean up the test container
+      - name: Cleanup container
+        if: always()
+        run: |
+          docker stop secure-ml-smoke || true
+          docker rm secure-ml-smoke || true
