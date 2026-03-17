@@ -27,6 +27,11 @@ jobs:
             "https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign_${COSIGN_VERSION#v}_amd64.deb"
           sudo dpkg -i /tmp/cosign.deb
 
+      # Authenticate to GitHub Container Registry for image pull access
+      - name: Log in to GHCR
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
       # Verify the signed image in GHCR using GitHub Actions OIDC identity
       - name: Verify signed image
         run: |
