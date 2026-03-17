@@ -1,10 +1,14 @@
 ## CI / Security Status
 
-![Docker Smoke Test](<badge-markdown-from-github>)
-![Trivy Container Scan](<badge-markdown-from-github>)
-![Generate SBOM](<badge-markdown-from-github>)
-![Cosign Sign Image](<badge-markdown-from-github>)
-![Cosign Verify Image](<badge-markdown-from-github>)
+![Docker Smoke Test](https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/actions/workflows/docker-smoke.yml/badge.svg)
+
+![Trivy Container Scan](https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/actions/workflows/trivy-scan.yml/badge.svg)
+
+![Generate SBOM](https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/actions/workflows/sbom.yml/badge.svg)
+
+![Cosign Sign Image](https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/actions/workflows/cosign-sign.yml/badge.svg)
+
+![Cosign Verify Image](https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/actions/workflows/cosign-verify.yml/badge.svg)
 
 ## Verifiable Deployment Path
 
