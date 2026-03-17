@@ -1,0 +1,29 @@
+name: Generate SBOM
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository contents
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Build the container image that will be documented by the SBOM
+      - name: Build Docker image
+        run: |
+          docker build -t secure-ml-deployment-pipeline:sbom .
+
+      # Generate an SPDX SBOM for the built container image
+      # The official Anchore action uses Syft and uploads the SBOM as a workflow artifact.
+      - name: Generate SBOM artifact
+        uses: anchore/sbom-action@v0
+        with:
+          image: secure-ml-deployment-pipeline:sbom
+          artifact-name: secure-ml-deployment-pipeline-sbom.spdx.json
