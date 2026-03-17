@@ -1,0 +1,39 @@
+name: Cosign Verify Image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  verify-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository contents
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Install Cosign for signature verification
+      - name: Install Cosign
+        run: |
+          COSIGN_VERSION="v2.6.0"
+          curl -fsSL -o /tmp/cosign.deb \
+            "https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign_${COSIGN_VERSION#v}_amd64.deb"
+          sudo dpkg -i /tmp/cosign.deb
+
+      # Verify the signed image in GHCR using GitHub Actions OIDC identity
+      - name: Verify signed image
+        run: |
+          IMAGE_URI="ghcr.io/${{ github.repository }}:latest"
+          IMAGE_URI=$(echo "${IMAGE_URI}" | tr '[:upper:]' '[:lower:]')
+
+          cosign verify \
+            --certificate-identity "https://github.com/${{ github.repository }}/.github/workflows/cosign-sign.yml@refs/heads/main" \
+            --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+            "${IMAGE_URI}"
