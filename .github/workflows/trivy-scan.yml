@@ -1,0 +1,33 @@
+name: Trivy Container Scan
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository contents
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Build the container image locally inside GitHub Actions
+      - name: Build Docker image
+        run: |
+          docker build -t secure-ml-deployment-pipeline:trivy .
+
+      # Scan the built image for critical and high severity vulnerabilities
+      - name: Run Trivy scan
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:0.56.1 \
+            image \
+            --severity HIGH,CRITICAL \
+            --ignore-unfixed \
+            --exit-code 1 \
+            secure-ml-deployment-pipeline:trivy

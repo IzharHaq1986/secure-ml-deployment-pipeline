@@ -20,20 +20,35 @@ jobs:
         run: |
           docker build -t secure-ml-deployment-pipeline:ci .
 
-      # Start the container in detached mode
+      # Start the container in detached mode using dynamic host port mapping
+      # This avoids fixed-port conflicts on the CI runner while still exposing
+      # container port 8000 to the host for the smoke test.
       - name: Run container
         run: |
-          docker run -d -p 8000:8000 --name secure-ml-smoke secure-ml-deployment-pipeline:ci
+          docker run -d -p 127.0.0.1::8000 --name secure-ml-smoke secure-ml-deployment-pipeline:ci
 
       # Give the FastAPI application a few seconds to start
       - name: Wait for application startup
         run: |
           sleep 5
 
+      # Show container state and logs to make CI failures easier to diagnose
+      - name: Show container status and logs
+        run: |
+          echo "=== docker ps -a ==="
+          docker ps -a
+
+          echo "=== container logs ==="
+          docker logs secure-ml-smoke || true
+
       # Validate that the health endpoint responds successfully
+      # The published host port is discovered dynamically from Docker.
       - name: Verify health endpoint
         run: |
-          curl --fail http://localhost:8000/health
+          PORT=$(docker port secure-ml-smoke 8000/tcp | sed 's/.*://')
+          echo "Mapped port: $PORT"
+
+          curl --retry 5 --retry-delay 2 --fail http://127.0.0.1:$PORT/health
 
       # Always clean up the test container
       - name: Cleanup container

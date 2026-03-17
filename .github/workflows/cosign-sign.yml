@@ -1,0 +1,54 @@
+name: Cosign Sign Image
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  sign-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository contents
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Log in to GitHub Container Registry using the built-in token
+      - name: Log in to GHCR
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      # Build the image and tag it for GHCR
+      - name: Build Docker image
+        run: |
+          IMAGE_URI="ghcr.io/${{ github.repository }}:latest"
+          IMAGE_URI=$(echo "${IMAGE_URI}" | tr '[:upper:]' '[:lower:]')
+
+          docker build -t "${IMAGE_URI}" .
+          echo "IMAGE_URI=${IMAGE_URI}" >> "${GITHUB_ENV}"
+
+      # Push the image to GHCR
+      - name: Push Docker image
+        run: |
+          docker push "${IMAGE_URI}"
+
+      # Install Cosign for signing
+      - name: Install Cosign
+        run: |
+          COSIGN_VERSION="v2.6.0"
+          curl -fsSL -o /tmp/cosign.deb \
+            "https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign_${COSIGN_VERSION#v}_amd64.deb"
+          sudo dpkg -i /tmp/cosign.deb
+
+      # Sign the pushed image using keyless OIDC-based signing
+      - name: Sign image with Cosign
+        env:
+          COSIGN_YES: "true"
+        run: |
+          cosign sign "${IMAGE_URI}"
