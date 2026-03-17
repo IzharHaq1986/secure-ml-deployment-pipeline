@@ -22,10 +22,12 @@ jobs:
 
       # Scan the built image for critical and high severity vulnerabilities
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          image-ref: secure-ml-deployment-pipeline:trivy
-          format: table
-          exit-code: 1
-          ignore-unfixed: true
-          severity: CRITICAL,HIGH
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:0.56.1 \
+            image \
+            --severity HIGH,CRITICAL \
+            --ignore-unfixed \
+            --exit-code 1 \
+            secure-ml-deployment-pipeline:trivy
