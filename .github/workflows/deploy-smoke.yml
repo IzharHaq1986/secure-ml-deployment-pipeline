@@ -1,0 +1,43 @@
+name: Deployment Smoke Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository contents so Docker Compose can build the service
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # Start the Compose deployment in detached mode
+      - name: Start Docker Compose deployment
+        run: |
+          docker compose up --build -d
+
+      # Allow the service a short startup window before validation
+      - name: Wait for application startup
+        run: |
+          sleep 8
+
+      # Show container state to make CI failures easier to diagnose
+      - name: Show deployment status
+        run: |
+          docker compose ps
+          docker compose logs --no-color || true
+
+      # Validate the deployed health endpoint from the runner
+      - name: Verify deployment health endpoint
+        run: |
+          curl --retry 5 --retry-delay 2 --fail http://127.0.0.1:8000/health
+
+      # Always clean up the deployment, even if validation fails
+      - name: Cleanup deployment
+        if: always()
+        run: |
+          docker compose down -v
