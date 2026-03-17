@@ -29,6 +29,14 @@ jobs:
         run: |
           sleep 5
 
+      - name: Show container status and logs
+        run: |
+          echo "=== docker ps -a ==="
+          docker ps -a
+
+          echo "=== container logs ==="
+          docker logs secure-ml-smoke || true
+
       # Validate that the health endpoint responds successfully
       - name: Verify health endpoint
         run: |
