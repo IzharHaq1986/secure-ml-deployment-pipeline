@@ -23,8 +23,7 @@ jobs:
       # Start the container in detached mode
       - name: Run container
         run: |
-          docker run -d -p 8000:8000 --name secure-ml-smoke secure-ml-deployment-pipeline:ci
-
+          docker run -d --name secure-ml-smoke secure-ml-deployment-pipeline:ci
       # Give the FastAPI application a few seconds to start
       - name: Wait for application startup
         run: |
@@ -33,8 +32,7 @@ jobs:
       # Validate that the health endpoint responds successfully
       - name: Verify health endpoint
         run: |
-          curl --fail http://localhost:8000/health
-
+          docker exec secure-ml-smoke curl --fail http://localhost:8000/health
       # Always clean up the test container
       - name: Cleanup container
         if: always()
