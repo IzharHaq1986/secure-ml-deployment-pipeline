@@ -24,45 +24,57 @@ jobs:
       - name: Build application image for deployment smoke test
         run: |
           # Build the local application image used by Docker Compose.
-          # Keeping the tag explicit makes the workflow output easier to read.
+          # Keeping the tag explicit makes workflow output easier to read.
           docker build \
             --tag secure-ml-deployment-pipeline:ci \
             .
 
       - name: Start Docker Compose deployment
         run: |
-          # Start the Compose stack in detached mode.
-          # The same Compose file is used again during teardown for consistency.
-          docker compose -f docker-compose.yml up -d
+          # Start the Compose stack in detached mode using the CI-specific
+          # environment template for deterministic runner behavior.
+          docker compose \
+            --env-file .env.ci.example \
+            -f docker-compose.yml \
+            up -d
 
       - name: Wait for application startup
         run: |
           # Give the container a short startup window before health validation.
-          # This keeps the workflow simple and deterministic for the smoke test.
+          # This keeps the smoke test simple and deterministic.
           sleep 10
 
       - name: Validate deployed health endpoint
         run: |
-          # Verify that the deployed service is reachable through the expected port.
-          # The --fail flag causes the step to fail on non-2xx HTTP responses.
+          # Verify that the deployed service is reachable through the expected
+          # host port exposed by Docker Compose.
           curl --fail --silent --show-error http://127.0.0.1:8000/health
 
       - name: Show container status on failure
         if: failure()
         run: |
-          # Print container state to help diagnose startup or health issues.
-          docker compose -f docker-compose.yml ps
+          # Print container state only when the workflow fails.
+          docker compose \
+            --env-file .env.ci.example \
+            -f docker-compose.yml \
+            ps
 
       - name: Show container logs on failure
         if: failure()
         run: |
           # Print service logs only when the workflow fails.
-          # This keeps successful runs concise while preserving useful diagnostics.
-          docker compose -f docker-compose.yml logs --no-color
+          # This preserves concise output for successful runs.
+          docker compose \
+            --env-file .env.ci.example \
+            -f docker-compose.yml \
+            logs --no-color
 
       - name: Tear down deployment
         if: always()
         run: |
           # Stop and remove the Compose stack even if a prior step fails.
           # Volumes are removed to keep the runner clean between executions.
-          docker compose -f docker-compose.yml down -v
+          docker compose \
+            --env-file .env.ci.example \
+            -f docker-compose.yml \
+            down -v
