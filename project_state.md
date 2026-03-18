@@ -53,43 +53,40 @@ All pipeline stages are implemented, validated, and enforced in branch protectio
 
 ## V. Recently Completed
 
-- Fixed Deploy Smoke workflow YAML and runtime validation
-- Added `docker-compose.yml` deployment resource limits:
-  - `cpus`
-  - `mem_limit`
-  - `pids_limit`
-- Validated local Docker Compose deployment lifecycle:
+- Fixed Deploy Smoke workflow trigger so required deployment validation runs on all pull requests
+- Added `.env.example` for portable Docker Compose runtime configuration
+- Updated `docker-compose.yml` to use environment-variable interpolation for:
+  - host port
+  - CPU limits
+  - memory limits
+- Updated `.gitignore` to exclude local `.env` files
+- Validated `.env`-driven Docker Compose deployment locally:
   - config validation
   - container startup
   - health endpoint check
   - clean teardown
-- Merged deployment hardening changes into `main`
+- Merged environment-based deployment configuration into `main`
 
 ---
 
 ## VI. Next Milestone
 
-- Introduce environment-based configuration for Compose
-- Add `.env.example` for portable deployment settings
-- Prepare deployment configuration for future Kubernetes migration
+- Document environment configuration in README
+- Add deployment usage example with `.env.example`
+- Prepare Compose profiles or configuration strategy for future dev / CI / production separation
 
 ---
 
 ## VII. Next Step
 
-Introduce environment-based configuration for Docker Compose.
+Document the environment-based deployment workflow in README.
 
 Focus:
 
-- externalize resource limits (CPU/memory)
-- support configurable ports and runtime settings
-- improve portability across local, CI, and production environments
-
-Deliverables:
-
-- `.env.example` file
-- Compose variable interpolation
-- documentation update in README
+- explain `.env.example` usage
+- document configurable Compose variables
+- show local deployment and teardown commands
+- keep setup clear for local, CI, and portfolio review use
 
 ---
 
@@ -107,9 +104,10 @@ Phase 1 — Engineering Implementation
 - Image verification → Completed
 - Deployment stage (Docker Compose) → Completed
 - Deployment validation (CI + local) → Completed
+- Environment-based configuration → Completed
 
 Phase 2 — Production Readiness (In Progress)
 
-- Environment configuration → Next
-- Resource tuning → Planned
+- README deployment documentation → Next
+- Configuration strategy refinement → Planned
 - Kubernetes deployment → Planned
