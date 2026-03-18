@@ -1,7 +1,5 @@
-version: "3.9"
-
 services:
-  secure-ml-api:
+  api:
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,23 +9,32 @@ services:
     ports:
       - "8000:8000"
 
-    restart: unless-stopped
-
-    # Run with a read-only root filesystem to reduce container write access
+    # Keep the filesystem read-only for safer runtime behavior.
     read_only: true
 
-    # Provide a temporary writable location for runtime operations if needed
+    # Provide a writable temporary filesystem for application needs.
     tmpfs:
       - /tmp
 
-    # Prevent privilege escalation inside the container
+    # Prevent privilege escalation inside the container.
     security_opt:
       - no-new-privileges:true
 
-    # Verify that the API remains healthy after startup
+    # Add lightweight runtime guardrails for local and CI deployment tests.
+    cpus: "${APP_CPUS:-1.00}"
+    mem_limit: "${APP_MEMORY_LIMIT:-512m}"
+    pids_limit: 100
+
+    # Health check validates that the API is responding inside the container.
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
-      interval: 30s
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"
+        ]
+      interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 5
       start_period: 10s
