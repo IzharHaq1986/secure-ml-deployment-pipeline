@@ -7,3 +7,5 @@ __pycache__/
 venv/
 .venv/
 model/artifacts/*
+# Local environment configuration for Docker Compose
+.env

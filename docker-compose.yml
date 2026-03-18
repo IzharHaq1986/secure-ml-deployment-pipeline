@@ -7,7 +7,8 @@ services:
     container_name: secure-ml-api
 
     ports:
-      - "8000:8000"
+    # Map the configurable host port to the container port used by FastAPI.
+      - "${APP_PORT:-8000}:8000"
 
     # Keep the filesystem read-only for safer runtime behavior.
     read_only: true
