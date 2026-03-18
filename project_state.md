@@ -35,67 +35,63 @@ Version 1 focuses on:
 5. Image signing (Cosign)
 6. Image verification (Cosign)
 
-## IV. Security Objectives
+## IV. Current Status
 
-- ensure artifact integrity across the pipeline
-- enable container provenance validation
-- demonstrate signed container workflows
-- provide dependency transparency via SBOM
-- enforce CI-based security gates before merge
-- document a verifiable ML deployment pipeline
+The project is now:
 
-## V. Current Repository State
-
-Completed:
-
-- GitHub repository created and configured
-- local repository initialized and synchronized
-- SSH authentication configured
-- project structure established
-- baseline documentation created
-- Python virtual environment configured
-- FastAPI service implemented
-- `/health` endpoint implemented and tested
-- dependencies captured in requirements.txt
-- Dockerfile created and validated
-- container image built and tested locally
-- Docker smoke test workflow implemented and passing
-- Trivy container scan workflow implemented and passing
-- SBOM generation workflow implemented and passing
-- Cosign image signing workflow implemented and passing
-- Cosign image verification workflow implemented and passing
-- GHCR image publishing configured
-- branch protection rules enabled
-- required status checks enforced
-- README updated with CI and security status badges
-- repository structured for portfolio presentation
-
-## VI. Current Status
-
-The project implements a fully verifiable container supply-chain pipeline.
-
-All stages from build to verification are automated, enforced through CI, and validated on every pull request and merge to main.
-
-The repository is now:
-
-- reproducible
-- verifiable
-- security-focused
+- fully reproducible
+- security-gated
+- supply-chain verifiable
+- deployment-capable
+- CI/CD enforced
+- deployment-enforced
 - portfolio-ready
+
+All pipeline stages are implemented, validated, and enforced in branch protection.
+
+---
+
+## V. Recently Completed
+
+- Fixed Deploy Smoke workflow YAML and runtime validation
+- Added `docker-compose.yml` deployment resource limits:
+  - `cpus`
+  - `mem_limit`
+  - `pids_limit`
+- Validated local Docker Compose deployment lifecycle:
+  - config validation
+  - container startup
+  - health endpoint check
+  - clean teardown
+- Merged deployment hardening changes into `main`
+
+---
+
+## VI. Next Milestone
+
+- Introduce environment-based configuration for Compose
+- Add `.env.example` for portable deployment settings
+- Prepare deployment configuration for future Kubernetes migration
+
+---
 
 ## VII. Next Step
 
-Implement deployment stage for the verified container image.
+Introduce environment-based configuration for Docker Compose.
 
-Next milestone:
+Focus:
 
-Introduce a deployment layer using Docker Compose to run the signed and verified container in a controlled runtime environment.
+- externalize resource limits (CPU/memory)
+- support configurable ports and runtime settings
+- improve portability across local, CI, and production environments
 
-Future direction:
+Deliverables:
 
-- deployment validation step
-- runtime security configuration
-- optional Kubernetes-based deployment extension
+- `.env.example` file
+- Compose variable interpolation
+- documentation update in README
+
+---
 
 ## VIII. Phase Progress
 
@@ -109,7 +105,11 @@ Phase 1 — Engineering Implementation
 - SBOM generation → Completed
 - Image signing → Completed
 - Image verification → Completed
+- Deployment stage (Docker Compose) → Completed
+- Deployment validation (CI + local) → Completed
 
-Next:
+Phase 2 — Production Readiness (In Progress)
 
-- Deployment stage
+- Environment configuration → Next
+- Resource tuning → Planned
+- Kubernetes deployment → Planned
