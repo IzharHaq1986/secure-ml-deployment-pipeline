@@ -1,0 +1,2 @@
+      - name: Run policy enforcement tests
+        run: python -m pytest tests/test_policy_enforcement.py -v
