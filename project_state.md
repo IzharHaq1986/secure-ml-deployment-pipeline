@@ -65,28 +65,33 @@ All pipeline stages are implemented, validated, and enforced in branch protectio
   - container startup
   - health endpoint check
   - clean teardown
-- Merged environment-based deployment configuration into `main`
+- Added `.env.ci.example` for CI-specific Docker Compose runtime settings
+- Updated `deploy-smoke.yml` to use the dedicated CI environment template
+- Merged CI configuration refinement into `main`
 
 ---
 
 ## VI. Next Milestone
 
-- Document environment configuration in README
-- Add deployment usage example with `.env.example`
-- Prepare Compose profiles or configuration strategy for future dev / CI / production separation
+- Introduce policy-based controls for untrusted AI agent interaction
+- Define least-privilege boundaries for deployment and verification actions
+- Separate trusted deployment logic from untrusted agent-driven inputs
+- Prepare a security-focused design note for agent-safe operations
 
 ---
 
 ## VII. Next Step
 
-Document the environment-based deployment workflow in README.
+Create a security design note for untrusted AI agent integration.
 
 Focus:
 
-- explain `.env.example` usage
-- document configurable Compose variables
-- show local deployment and teardown commands
-- keep setup clear for local, CI, and portfolio review use
+- external policy-based authorization
+- least-privilege scoped credentials
+- validated tool calls and sanitized inputs
+- strict separation of trusted and untrusted context
+- gated high-risk actions
+- isolated identities, monitored runtime behavior, and constrained memory
 
 ---
 
@@ -105,9 +110,14 @@ Phase 1 — Engineering Implementation
 - Deployment stage (Docker Compose) → Completed
 - Deployment validation (CI + local) → Completed
 - Environment-based configuration → Completed
+- CI-specific deployment configuration → Completed
 
 Phase 2 — Production Readiness (In Progress)
 
-- README deployment documentation → Next
-- Configuration strategy refinement → Planned
+- Security design for untrusted AI agents → Next
+- Configuration strategy refinement → In Progress
 - Kubernetes deployment → Planned
+
+
+
+
