@@ -35,7 +35,68 @@ The pipeline produces and validates these controls:
 
 The deployment layer supports environment-based configuration through Docker Compose.
 
-### 1. Create a local environment file
+---
+
+## Agent Security Enforcement
+
+The project includes a lightweight policy enforcement layer for untrusted
+agent-triggered actions.
+
+## Security Controls Implemented
+
+- centralized policy engine for action enforcement
+- default-deny behavior for unregistered actions
+- validated external input boundary for agent-submitted requests
+- explicit separation between external request models and internal enforcement models
+- controlled HTTP 403 responses for policy violations
+- audit logging for policy approvals and denials
+- high-risk deployment gating with explicit approval checks
+
+## Enforcement Flow
+
+The current enforcement flow is:
+
+Agent request -> validated API input -> internal action model -> policy engine -> allow/deny decision
+
+## Example Protected Actions
+
+Implemented examples include:
+
+- `read_status`
+  - low-risk read action
+  - allowed only from approved sources
+
+- `deploy_model`
+  - high-risk deployment action
+  - requires:
+    - `source="agent"`
+    - `risk_level="high"`
+    - `parameters.approved=true`
+
+## Auditability
+
+Policy decisions are logged at runtime.
+
+Examples:
+
+- approved actions are logged at `INFO`
+- denied actions are logged at `WARNING`
+
+This provides a minimal audit trail for policy outcomes during local runs,
+testing, and future deployment integration.
+
+## Test Coverage
+
+Policy enforcement behavior is covered by automated tests, including:
+
+- public health endpoint
+- protected health endpoint
+- denied policy path
+- validated low-risk action approval
+- denied unapproved deployment
+- approved high-risk deployment
+
+## 1. Create a local environment file
 
 Copy the example file:
 

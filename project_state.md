@@ -34,7 +34,11 @@ Version 1 focuses on:
 4. SBOM generation
 5. Image signing (Cosign)
 6. Image verification (Cosign)
-
+7. Agent policy enforcement layer
+8. Validated agent action boundary
+9. High-risk action gating
+10. Policy decision audit logging
+11. Policy enforcement test coverage
 ## IV. Current Status
 
 The project is now:
@@ -45,9 +49,11 @@ The project is now:
 - deployment-capable
 - CI/CD enforced
 - deployment-enforced
+- environment-configurable
+- policy-enforced (agent interaction layer)
+- audit-observable (policy decisions logged)
+- test-validated (policy enforcement paths covered)
 - portfolio-ready
-
-All pipeline stages are implemented, validated, and enforced in branch protection.
 
 ---
 
@@ -68,30 +74,37 @@ All pipeline stages are implemented, validated, and enforced in branch protectio
 - Added `.env.ci.example` for CI-specific Docker Compose runtime settings
 - Updated `deploy-smoke.yml` to use the dedicated CI environment template
 - Merged CI configuration refinement into `main`
+- Implemented centralized policy enforcement engine
+- Introduced validated external agent action boundary
+- Added strict separation between external input and internal enforcement models
+- Implemented high-risk deployment gating with explicit approval requirement
+- Added structured audit logging for policy decisions (allow/deny)
+- Added automated tests for policy enforcement paths (pytest)
+- Added test dependencies to project environment
+- Updated README with agent security enforcement documentation
 
 ---
 
 ## VI. Next Milestone
 
-- Introduce policy-based controls for untrusted AI agent interaction
-- Define least-privilege boundaries for deployment and verification actions
-- Separate trusted deployment logic from untrusted agent-driven inputs
-- Prepare a security-focused design note for agent-safe operations
+Finalization and production-readiness enhancements:
+
+- dependency version pinning and environment hardening
+- CI integration for automated test execution
+- optional structured audit log persistence (JSON/file sink)
+- Kubernetes deployment layer (policy-aware)
+- extended policy rules for additional actions
 
 ---
 
 ## VII. Next Step
 
-Create a security design note for untrusted AI agent integration.
+Finalize repository for production-grade presentation:
 
-Focus:
-
-- external policy-based authorization
-- least-privilege scoped credentials
-- validated tool calls and sanitized inputs
-- strict separation of trusted and untrusted context
-- gated high-risk actions
-- isolated identities, monitored runtime behavior, and constrained memory
+- ensure dependency files are fully aligned
+- verify CI pipeline includes test execution
+- validate documentation completeness (README + security docs)
+- prepare repository for public portfolio visibility
 
 ---
 
@@ -112,12 +125,16 @@ Phase 1 — Engineering Implementation
 - Environment-based configuration → Completed
 - CI-specific deployment configuration → Completed
 
-Phase 2 — Production Readiness (In Progress)
+## Phase 2 - Production Readiness (Near Completion)
 
-- Security design for untrusted AI agents → Next
+- Agent security design → Completed
+- Policy enforcement layer → Completed
+- Validated input boundary → Completed
+- High-risk action gating → Completed
+- Audit logging → Completed
+- Policy enforcement testing → Completed
 - Configuration strategy refinement → In Progress
 - Kubernetes deployment → Planned
-
 
 
 
