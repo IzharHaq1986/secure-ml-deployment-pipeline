@@ -108,7 +108,7 @@ python -m pytest -v
 ## API Endpoints
 
 ### Health Check
-```md
+```text
 GET /health
 
 ### Protected Health Check
@@ -116,8 +116,6 @@ GET /health
 POST /agent/actions/validate
 
 ### Example request:
-
-```JSON
 
 {
   "action": "read_status",
