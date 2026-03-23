@@ -1,4 +1,4 @@
-## CI / Security Status
+![CI](https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/actions/workflows/ci.yml/badge.svg)
 
 ## Tech Stack
 
