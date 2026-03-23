@@ -1,5 +1,5 @@
-      - name: Run policy enforcement tests
-        run: python -m pytest tests/test_policy_enforcement.py -v
+      - name: Run tests
+        run: python -m pytest -v
 
       - name: Install dependencies
         run: |
