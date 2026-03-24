@@ -1,6 +1,6 @@
 # Secure ML Deployment Pipeline
 
-![CI](https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/actions/workflows/ci.yml/badge.svg)
+![CI Pipeline](https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/actions/workflows/ci.yml/badge.svg?branch=main)
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-0.129-green) ![Docker](https://img.shields.io/badge/Docker-Container-blue) ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI/CD-black) ![Trivy](https://img.shields.io/badge/Security-Trivy-red) ![Cosign](https://img.shields.io/badge/SupplyChain-Cosign-purple) ![SBOM](https://img.shields.io/badge/SBOM-SPDX-orange)
 
