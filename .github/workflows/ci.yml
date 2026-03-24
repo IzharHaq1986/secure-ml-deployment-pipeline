@@ -39,7 +39,9 @@ jobs:
         run: |
           pip-audit
 
-      # Run tests
+      # Run test suite
       - name: Run tests
+        env:
+          PYTHONPATH: .
         run: |
-          pytest -v
+          pytest
