@@ -1,12 +1,15 @@
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
+
+from app.config import get_settings
+from app.security.exceptions import PolicyViolationError
 from app.security.models import ActionRequest, AgentActionInput
 from app.security.policy_engine import (
     PolicyEngine,
     allow_agent_read_status,
     gate_high_risk_deployment,
 )
-from app.security.exceptions import PolicyViolationError
+
 import logging
 
 logging.basicConfig(
@@ -14,10 +17,14 @@ logging.basicConfig(
     format="%(levelname)s:%(name)s:%(message)s",
 )
 
+# Load and validate configuration at startup.
+# Invalid configuration should stop the service before the API begins serving traffic.
+settings = get_settings()
+
 app = FastAPI(
     title="Secure ML Deployment Pipeline",
     description="Minimal FastAPI service for secure ML deployment demonstration.",
-    version="0.1.0"
+    version="0.1.0",
 )
 
 # Central policy engine used to enforce protected actions.
@@ -27,21 +34,19 @@ policy_engine = PolicyEngine()
 # allow the read_status action only from approved sources.
 policy_engine.register_policy("read_status", allow_agent_read_status)
 
-# Baseline rule:
-# allow the read_status action only from approved sources.
-policy_engine.register_policy("read_status", allow_agent_read_status)
-
 # High-risk rule:
 # deployment-style actions require explicit approval.
 policy_engine.register_policy("deploy_model", gate_high_risk_deployment)
 
+
 @app.get("/health")
-def health_check():
+def health_check() -> dict[str, str]:
     """
     Health endpoint used for local validation, container smoke tests,
     and deployment checks.
     """
     return {"status": "ok"}
+
 
 @app.exception_handler(PolicyViolationError)
 def handle_policy_violation(
@@ -62,8 +67,9 @@ def handle_policy_violation(
         },
     )
 
+
 @app.get("/secure-health")
-def secure_health_check():
+def secure_health_check() -> dict[str, str]:
     """
     Protected health endpoint.
 
@@ -83,8 +89,9 @@ def secure_health_check():
 
     return {"status": "secure-ok"}
 
+
 @app.get("/secure-health-denied")
-def secure_health_denied():
+def secure_health_denied() -> dict[str, str]:
     """
     Negative-path validation endpoint.
 
@@ -104,8 +111,9 @@ def secure_health_denied():
 
     return {"status": "should-not-return"}
 
+
 @app.post("/agent/actions/validate")
-def validate_agent_action(payload: AgentActionInput):
+def validate_agent_action(payload: AgentActionInput) -> dict[str, str]:
     """
     Validate and enforce an externally supplied agent action.
 

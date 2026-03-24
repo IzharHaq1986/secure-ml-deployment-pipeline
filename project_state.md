@@ -11,6 +11,8 @@ The project demonstrates a verifiable delivery path:
 
 Model training → container build → validation → vulnerability scanning → SBOM → image signing → verification → deployment
 
+---
+
 ## II. v1 Scope
 
 Version 1 focuses on:
@@ -26,6 +28,8 @@ Version 1 focuses on:
 - Cosign image verification
 - documentation and architecture assets
 
+---
+
 ## III. Implemented Pipeline Stages
 
 1. Container build
@@ -39,6 +43,9 @@ Version 1 focuses on:
 9. High-risk action gating
 10. Policy decision audit logging
 11. Policy enforcement test coverage
+
+---
+
 ## IV. Current Status
 
 The project is now:
@@ -47,70 +54,80 @@ The project is now:
 - security-gated
 - supply-chain verifiable
 - deployment-capable
-- CI/CD enforced
-- deployment-enforced
+- CI/CD enforced (green on main)
+- deployment-validated (CI + local)
 - environment-configurable
 - policy-enforced (agent interaction layer)
 - audit-observable (policy decisions logged)
 - test-validated (policy enforcement paths covered)
+- versioned (v1.0.0 release)
+- release-backed with SBOM artifact
 - portfolio-ready
 
 ---
 
 ## V. Recently Completed
 
-- Fixed Deploy Smoke workflow trigger so required deployment validation runs on all pull requests
-- Added `.env.example` for portable Docker Compose runtime configuration
-- Updated `docker-compose.yml` to use environment-variable interpolation for:
-  - host port
-  - CPU limits
-  - memory limits
-- Updated `.gitignore` to exclude local `.env` files
-- Validated `.env`-driven Docker Compose deployment locally:
-  - config validation
-  - container startup
-  - health endpoint check
-  - clean teardown
-- Added `.env.ci.example` for CI-specific Docker Compose runtime settings
-- Updated `deploy-smoke.yml` to use the dedicated CI environment template
-- Merged CI configuration refinement into `main`
-- Implemented centralized policy enforcement engine
-- Introduced validated external agent action boundary
-- Added strict separation between external input and internal enforcement models
-- Implemented high-risk deployment gating with explicit approval requirement
-- Added structured audit logging for policy decisions (allow/deny)
-- Added automated tests for policy enforcement paths (pytest)
-- Added test dependencies to project environment
-- Updated README with agent security enforcement documentation
+- Fixed CI workflow YAML issues and restored pipeline execution
+- Resolved pytest import path issue (`app` module)
+- Ensured CI test execution is stable and reproducible
+- Validated all workflows passing on `main`:
+  - CI Pipeline
+  - Trivy Container Scan
+  - Generate SBOM
+  - Docker Smoke Test
+  - Cosign Sign Image
+  - Cosign Verify Image
+- Fixed README CI badge to correctly reflect `main` status
+- Merged all feature work into `main` via PR workflow
+- Created annotated release tag `v1.0.0`
+- Created GitHub Release for `v1.0.0`
+- Attached SBOM artifact to release for auditability
 
 ---
 
-## VI. Next Milestone
+## VI. Release State (v1.0.0)
 
-Finalization and production-readiness enhancements:
+The repository now provides:
 
-- dependency version pinning and environment hardening
-- CI integration for automated test execution
-- optional structured audit log persistence (JSON/file sink)
+- reproducible container build
+- vulnerability-scanned image
+- SBOM (SPDX) artifact
+- signed container image (Cosign keyless)
+- verified image signature (OIDC identity)
+- CI/CD pipeline with enforced checks
+- deployment validation via Docker Compose
+- policy-enforced agent interaction layer
+
+This represents a complete, verifiable supply-chain demonstration.
+
+---
+
+## VII. Next Milestone
+
+Transition from implementation to authority and extension:
+
 - Kubernetes deployment layer (policy-aware)
 - extended policy rules for additional actions
+- structured audit log persistence (file / external sink)
+- optional metrics and observability integration
 
 ---
 
-## VII. Next Step
+## VIII. Next Step
 
-Finalize repository for production-grade presentation:
+Begin authority-building and portfolio positioning:
 
-- ensure dependency files are fully aligned
-- verify CI pipeline includes test execution
-- validate documentation completeness (README + security docs)
-- prepare repository for public portfolio visibility
+- publish technical teardown (architecture + security pipeline)
+- publish DevSecOps verification walkthrough (Cosign + SBOM)
+- create repository walkthrough content (GitHub + LinkedIn)
+- position project as a verifiable ML deployment reference
 
 ---
 
-## VIII. Phase Progress
+## IX. Phase Progress
 
-Phase 1 — Engineering Implementation
+### Phase 1 — Engineering Implementation (Completed)
 
 - Repository setup → Completed
 - Service implementation → Completed
@@ -125,7 +142,9 @@ Phase 1 — Engineering Implementation
 - Environment-based configuration → Completed
 - CI-specific deployment configuration → Completed
 
-## Phase 2 - Production Readiness (Near Completion)
+---
+
+### Phase 2 — Production Readiness (Completed)
 
 - Agent security design → Completed
 - Policy enforcement layer → Completed
@@ -133,8 +152,8 @@ Phase 1 — Engineering Implementation
 - High-risk action gating → Completed
 - Audit logging → Completed
 - Policy enforcement testing → Completed
+- CI stability and correctness → Completed
+- Repository finalization → Completed
+- Release creation (v1.0.0) → Completed
 - Configuration strategy refinement → In Progress
 - Kubernetes deployment → Planned
-
-
-
