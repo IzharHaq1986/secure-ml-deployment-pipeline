@@ -3,6 +3,9 @@ Integration tests for policy enforcement behavior.
 """
 
 from fastapi.testclient import TestClient
+import os
+
+os.environ["MODEL_NAME"] = "test-model"
 
 from app.main import app
 
