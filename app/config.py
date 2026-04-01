@@ -1,5 +1,4 @@
-"""
-Application configuration for the Secure ML Deployment Pipeline service.
+""" Application configuration for the Secure ML Deployment Pipeline service.
 
 This module centralizes environment-backed settings so startup behavior
 is predictable, validated, and easy to test.
@@ -16,7 +15,7 @@ class Settings(BaseSettings):
 
     port: int = Field(default=8000, alias="PORT")
     debug: bool = Field(default=False, alias="DEBUG")
-    model_name: str = Field(alias="MODEL_NAME")
+    model_name: str = Field(validation_alias="MODEL_NAME")
 
     model_config = SettingsConfigDict(
         env_file=".env",
