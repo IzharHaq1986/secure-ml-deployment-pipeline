@@ -42,7 +42,7 @@ jobs:
         run: |
           # Give the container a short startup window before health validation.
           # This keeps the smoke test simple and deterministic.
-          sleep 10
+          sleep 20
 
       - name: Validate deployed health endpoint
         run: |
