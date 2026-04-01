@@ -1,17 +1,14 @@
-name: Deploy Smoke
+name: Docker Compose deployment smoke test
 
 on:
+  push:
   pull_request:
-    branches:
-      - main
-  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   deploy-smoke:
-    name: Docker Compose deployment smoke test
     runs-on: ubuntu-latest
 
     steps:
@@ -44,22 +41,23 @@ jobs:
           # This keeps the smoke test simple and deterministic.
           sleep 20
 
-       - name: Validate deployed health endpoint
+      - name: Validate deployed health endpoint
         run: |
-          # Retry loop to wait for service readiness instead of fixed sleep
-          # This avoids race conditions in CI startup timing 
+          # Retry the health check to account for variable startup timing in CI.
+          # This keeps the smoke test stable without changing application logic.
           for i in {1..10}; do
-            if curl --fail --silent http://127.0.0.1:8000/health; then
+            if curl --fail --silent --show-error http://127.0.0.1:8000/health; then
               echo "Service is ready"
               exit 0
             fi
+
             echo "Waiting for service to become ready..."
             sleep 3
           done
 
           echo "Service failed to become ready in time"
           exit 1
-  
+
       - name: Show container status on failure
         if: failure()
         run: |
