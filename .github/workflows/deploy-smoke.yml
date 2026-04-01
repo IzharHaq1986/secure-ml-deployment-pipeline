@@ -44,12 +44,22 @@ jobs:
           # This keeps the smoke test simple and deterministic.
           sleep 20
 
-      - name: Validate deployed health endpoint
+       - name: Validate deployed health endpoint
         run: |
-          # Verify that the deployed service is reachable through the expected
-          # host port exposed by Docker Compose.
-          curl --fail --silent --show-error http://127.0.0.1:8000/health
+          # Retry loop to wait for service readiness instead of fixed sleep
+          # This avoids race conditions in CI startup timing 
+          for i in {1..10}; do
+            if curl --fail --silent http://127.0.0.1:8000/health; then
+              echo "Service is ready"
+              exit 0
+            fi
+            echo "Waiting for service to become ready..."
+            sleep 3
+          done
 
+          echo "Service failed to become ready in time"
+          exit 1
+  
       - name: Show container status on failure
         if: failure()
         run: |
