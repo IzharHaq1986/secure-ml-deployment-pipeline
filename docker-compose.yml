@@ -6,6 +6,10 @@ services:
 
     container_name: secure-ml-api
 
+    # Pass required runtime settings into the application container.
+    environment:
+      MODEL_NAME: "${MODEL_NAME}"
+
     ports:
     # Map the configurable host port to the container port used by FastAPI.
       - "${APP_PORT:-8000}:8000"
