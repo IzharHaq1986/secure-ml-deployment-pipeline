@@ -142,7 +142,6 @@ This repository demonstrates a security-focused ML deployment path:
 
 ---
 
-```md
 ## Architecture Diagram
 
 ```mermaid
