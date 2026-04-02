@@ -161,7 +161,7 @@ flowchart TD
     K --> M[Policy Engine]
     M --> N[Allow or Deny Agent Action]
     N --> O[Audit Log Decision]
-
+```
 ---
 
 ## Verify the Supply Chain
