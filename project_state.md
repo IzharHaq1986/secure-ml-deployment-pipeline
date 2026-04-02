@@ -63,6 +63,7 @@ The project is now:
 - versioned (v1.0.0 release)
 - release-backed with SBOM artifact
 - portfolio-ready
+- Documentation and presentation layer in `main` now match the technical maturity of the project
 
 ---
 
@@ -83,6 +84,9 @@ The project is now:
 - Created annotated release tag `v1.0.0`
 - Created GitHub Release for `v1.0.0`
 - Attached SBOM artifact to release for auditability
+- README enhanced with copy-paste verification workflow
+- README includes a “What This Proves” section for non-technical reviewers
+- README includes a lightweight architecture diagram for fast visual understanding
 
 ---
 
