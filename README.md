@@ -162,7 +162,6 @@ flowchart TD
     M --> N[Allow or Deny Agent Action]
     N --> O[Audit Log Decision]
 ```
----
 
 ## Verify the Supply Chain
 
