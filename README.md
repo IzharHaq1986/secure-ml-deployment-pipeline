@@ -142,6 +142,82 @@ This repository demonstrates a security-focused ML deployment path:
 
 ---
 
+## Architecture Diagram
+
+```mermaid
+flowchart TD
+    A[Developer Pushes Code] --> B[GitHub Actions CI]
+    B --> C[Run Tests and Validation]
+    C --> D[Build Container Image]
+    D --> E[Trivy Security Scan]
+    E --> F[Generate SBOM with Syft]
+    F --> G[Sign Image with Cosign OIDC]
+    G --> H[Verify Signature]
+    H --> I[Docker Compose Deployment]
+    I --> J[Health and Readiness Validation]
+
+    J --> K[FastAPI Service]
+    K --> L[Strict Settings Validation]
+    K --> M[Policy Engine]
+    M --> N[Allow or Deny Agent Action]
+    N --> O[Audit Log Decision]
+```
+
+```md
+This diagram shows the delivery path from code commit to validated deployment, including security scanning, SBOM generation, image signing, verification, policy enforcement, and audit logging.
+```
+
+---
+
+## Verify the Supply Chain
+
+### 1. Pull the Image
+
+```bash
+docker pull ghcr.io/izharhaq1986/secure-ml-deployment-pipeline:latest
+```
+
+### 2. Verify Image Signature (Cosign OIDC)
+
+```bash
+cosign verify \
+  --certificate-identity "https://github.com/IzharHaq1986/secure-ml-deployment-pipeline/.github/workflows/cosign-sign.yml@refs/heads/main" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+  ghcr.io/izharhaq1986/secure-ml-deployment-pipeline:latest
+```
+
+### 3. Inspect SBOM (SPDX)
+
+```bash
+gh run download -n sbom --repo IzharHaq1986/secure-ml-deployment-pipeline
+cat *.spdx.json | jq '.packages[0:5]'
+```
+
+### 4. Run the Service Locally
+
+```bash
+docker run -p 8000:8000 \
+  -e MODEL_NAME=fraud-detection-model \
+  ghcr.io/izharhaq1986/secure-ml-deployment-pipeline:latest
+```
+
+Test:
+
+```bash
+curl http://127.0.0.1:8000/health
+``` 
+
+---
+
+## What This Proves
+
+- The container image is signed and verifiable using GitHub OIDC identity  
+- The build pipeline produces a traceable SBOM for dependency inspection  
+- The deployment can be reproduced with consistent runtime behavior  
+- Security checks are enforced automatically before code reaches production  
+
+---
+
 ## Security Artifacts
 
 The pipeline produces and validates these controls:
