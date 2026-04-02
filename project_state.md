@@ -161,3 +161,16 @@ Begin authority-building and portfolio positioning:
 - Release creation (v1.0.0) → Completed
 - Configuration strategy refinement → In Progress
 - Kubernetes deployment → Planned
+
+---
+
+---
+
+### Phase 3 — Authority Building (In Progress)
+
+- Technical teardown article (this project as flagship) → Incomplete 
+- DevSecOps content (Cosign, SBOM, secure pipelines) → Incomplete 
+- Repository positioning as reference implementation → Incomplete 
+- LinkedIn + GitHub authority loop → In Progress 
+- DevSecOps post: Verifying container images with Cosign (OIDC, no keys) → Incomplete 
+  Note: On hold since a related article was just published recently.
