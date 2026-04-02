@@ -163,10 +163,6 @@ flowchart TD
     N --> O[Audit Log Decision]
 ```
 
-```md
-This diagram shows the delivery path from code commit to validated deployment, including security scanning, SBOM generation, image signing, verification, policy enforcement, and audit logging.
-```
-
 ---
 
 ## Verify the Supply Chain
