@@ -244,6 +244,21 @@ cp .env.example .env
 
 ---
 
+## Kubernetes Deployment (Baseline)
+
+A minimal Kubernetes deployment is included under `k8s/`.
+
+### Files
+
+- `k8s/deployment.yaml` → application deployment with probes and security context 
+- `k8s/service.yaml` → internal ClusterIP service 
+
+### Validate Manifests (offline)
+
+```bash
+kubeconform -strict -summary k8s/deployment.yaml k8s/service.yaml
+```
+
 ## Agent Security Enforcement
 
 The project includes a lightweight policy enforcement layer for untrusted agent-triggered actions.

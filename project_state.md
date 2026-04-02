@@ -64,6 +64,7 @@ The project is now:
 - release-backed with SBOM artifact
 - portfolio-ready
 - Documentation and presentation layer in `main` now match the technical maturity of the project
+- Kubernetes-ready baseline deployment is included and validated
 
 ---
 
@@ -87,6 +88,9 @@ The project is now:
 - README enhanced with copy-paste verification workflow
 - README includes a “What This Proves” section for non-technical reviewers
 - README includes a lightweight architecture diagram for fast visual understanding
+- Added Kubernetes baseline deployment manifests (`k8s/deployment.yaml` and `k8s/service.yaml`)
+- Validated Kubernetes manifests offline with `kubeconform`
+- Completed configuration strategy refinement with explicit environment handling
 
 ---
 
@@ -111,7 +115,7 @@ This represents a complete, verifiable supply-chain demonstration.
 
 Transition from implementation to authority and extension:
 
-- Kubernetes deployment layer (policy-aware)
+- Extended Kubernetes productionization (ConfigMap, Secret, Ingress, scaling)
 - extended policy rules for additional actions
 - structured audit log persistence (file / external sink)
 - optional metrics and observability integration
@@ -159,8 +163,8 @@ Begin authority-building and portfolio positioning:
 - CI stability and correctness → Completed
 - Repository finalization → Completed
 - Release creation (v1.0.0) → Completed
-- Configuration strategy refinement → In Progress
-- Kubernetes deployment → Planned
+- Configuration strategy refinement → Completed
+- Kubernetes deployment → Completed (baseline)
 
 ---
 
