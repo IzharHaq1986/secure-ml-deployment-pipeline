@@ -142,6 +142,7 @@ This repository demonstrates a security-focused ML deployment path:
 
 ---
 
+```md
 ## Architecture Diagram
 
 ```mermaid
@@ -161,7 +162,6 @@ flowchart TD
     K --> M[Policy Engine]
     M --> N[Allow or Deny Agent Action]
     N --> O[Audit Log Decision]
-```
 
 ---
 
