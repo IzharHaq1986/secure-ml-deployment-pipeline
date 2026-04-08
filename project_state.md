@@ -65,6 +65,7 @@ The project is now:
 - portfolio-ready
 - Documentation and presentation layer in `main` now match the technical maturity of the project
 - Kubernetes-ready baseline deployment is included and validated
+- README architecture diagram rendering issue was resolved
 
 ---
 
@@ -91,6 +92,11 @@ The project is now:
 - Added Kubernetes baseline deployment manifests (`k8s/deployment.yaml` and `k8s/service.yaml`)
 - Validated Kubernetes manifests offline with `kubeconform`
 - Completed configuration strategy refinement with explicit environment handling
+- Added Kubernetes baseline deployment manifests (`k8s/deployment.yaml` and `k8s/service.yaml`)
+- Validated Kubernetes manifests offline with `kubeconform`
+- Completed configuration strategy refinement with explicit environment handling
+- Finalized README verification, Kubernetes, and architecture documentation
+- Resolved README Mermaid architecture diagram rendering issue
 
 ---
 
@@ -130,6 +136,7 @@ Begin authority-building and portfolio positioning:
 - publish DevSecOps verification walkthrough (Cosign + SBOM)
 - create repository walkthrough content (GitHub + LinkedIn)
 - position project as a verifiable ML deployment reference
+- Extended Kubernetes productionization (ConfigMap, Secret, Ingress, scaling)
 
 ---
 
