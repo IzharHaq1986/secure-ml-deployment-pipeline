@@ -66,6 +66,7 @@ The project is now:
 - Documentation and presentation layer in `main` now match the technical maturity of the project
 - Kubernetes-ready baseline deployment is included and validated
 - README architecture diagram rendering issue was resolved
+- Phase 3 authority-building has started with the first public technical post
 
 ---
 
@@ -97,6 +98,8 @@ The project is now:
 - Completed configuration strategy refinement with explicit environment handling
 - Finalized README verification, Kubernetes, and architecture documentation
 - Resolved README Mermaid architecture diagram rendering issue
+- Published a LinkedIn authority-building post based on this project
+- Extended project visibility from implementation into public technical explanation
 
 ---
 
@@ -179,9 +182,9 @@ Begin authority-building and portfolio positioning:
 
 ### Phase 3 — Authority Building (In Progress)
 
-- Technical teardown article (this project as flagship) → Incomplete 
-- DevSecOps content (Cosign, SBOM, secure pipelines) → Incomplete 
-- Repository positioning as reference implementation → Incomplete 
-- LinkedIn + GitHub authority loop → In Progress 
-- DevSecOps post: Verifying container images with Cosign (OIDC, no keys) → Incomplete 
+- Technical teardown article (this project as flagship) → Incomplete
+- DevSecOps content (Cosign, SBOM, secure pipelines) → In Progress
+- Repository positioning as reference implementation → In Progress
+- LinkedIn + GitHub authority loop → In Progress
+- LinkedIn post published: verification must be enforced, not just present → Completed
   Note: On hold since a related article was just published recently.
