@@ -163,6 +163,11 @@ flowchart TD
     N --> O[Audit Log Decision]
 ```
 
+## Technical Deep Dive
+
+- [Architecture of a Secure ML Deployment Pipeline](docs/articles/secure-ml-pipeline-teardown.md)
+- [Verification Is Not Enough: Turning Checks Into Enforcement](docs/articles/verification-as-enforcement.md)
+
 ## Verify the Supply Chain
 
 ### 1. Pull the Image
