@@ -146,23 +146,22 @@ This repository demonstrates a security-focused ML deployment path:
 
 ```mermaid
 flowchart TD
-    A[Developer Pushes Code] --> B[GitHub Actions CI]
-    B --> C[Run Tests and Validation]
-    C --> D[Build Container Image]
-    D --> E[Trivy Security Scan]
-    E --> F[Generate SBOM with Syft]
-    F --> G[Sign Image with Cosign OIDC]
+    A[Code Push] --> B[CI Pipeline]
+    B --> C[Tests]
+    C --> D[Build Image]
+    D --> E[Trivy Scan]
+    E --> F[Generate SBOM]
+    F --> G[Cosign Sign]
     G --> H[Verify Signature]
-    H --> I[Docker Compose Deployment]
-    I --> J[Health and Readiness Validation]
+    H --> I[Deploy]
+    I --> J[Health Check]
 
     J --> K[FastAPI Service]
-    K --> L[Strict Settings Validation]
+    K --> L[Config Validation]
     K --> M[Policy Engine]
-    M --> N[Allow or Deny Agent Action]
-    N --> O[Audit Log Decision]
+    M --> N[Allow or Deny]
+    N --> O[Audit Log]
 ```
-
 ## Technical Deep Dive
 
 - [Architecture of a Secure ML Deployment Pipeline](docs/articles/secure-ml-pipeline-teardown.md)
