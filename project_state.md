@@ -63,10 +63,12 @@ The project is now:
 - versioned (v1.0.0 release)
 - release-backed with SBOM artifact
 - portfolio-ready
-- Documentation and presentation layer in `main` now match the technical maturity of the project
-- Kubernetes-ready baseline deployment is included and validated
-- README architecture diagram rendering issue was resolved
-- Phase 3 authority-building has started with the first public technical post
+- documentation and presentation layer aligned with technical maturity
+- Kubernetes-ready baseline deployment included and validated
+- README architecture diagram rendering issue resolved
+- Phase 3 authority-building started with published technical posts
+- Container vulnerability scanning baseline is restored and passing after base image remediation
+- Repository now includes both implementation assets and long-form authority content
 
 ---
 
@@ -75,31 +77,27 @@ The project is now:
 - Fixed CI workflow YAML issues and restored pipeline execution
 - Resolved pytest import path issue (`app` module)
 - Ensured CI test execution is stable and reproducible
-- Validated all workflows passing on `main`:
-  - CI Pipeline
-  - Trivy Container Scan
-  - Generate SBOM
-  - Docker Smoke Test
-  - Cosign Sign Image
-  - Cosign Verify Image
+- Validated all workflows passing on `main`
 - Fixed README CI badge to correctly reflect `main` status
 - Merged all feature work into `main` via PR workflow
 - Created annotated release tag `v1.0.0`
 - Created GitHub Release for `v1.0.0`
 - Attached SBOM artifact to release for auditability
-- README enhanced with copy-paste verification workflow
-- README includes a “What This Proves” section for non-technical reviewers
-- README includes a lightweight architecture diagram for fast visual understanding
-- Added Kubernetes baseline deployment manifests (`k8s/deployment.yaml` and `k8s/service.yaml`)
-- Validated Kubernetes manifests offline with `kubeconform`
-- Completed configuration strategy refinement with explicit environment handling
-- Added Kubernetes baseline deployment manifests (`k8s/deployment.yaml` and `k8s/service.yaml`)
-- Validated Kubernetes manifests offline with `kubeconform`
-- Completed configuration strategy refinement with explicit environment handling
-- Finalized README verification, Kubernetes, and architecture documentation
-- Resolved README Mermaid architecture diagram rendering issue
-- Published a LinkedIn authority-building post based on this project
-- Extended project visibility from implementation into public technical explanation
+- README enhanced with verification workflow
+- Added “What This Proves” section
+- Added architecture diagram
+- Added Kubernetes baseline manifests (`k8s/deployment.yaml`, `k8s/service.yaml`)
+- Validated Kubernetes manifests with `kubeconform`
+- Completed configuration strategy refinement
+- Finalized README documentation (verification, Kubernetes, architecture)
+- Resolved Mermaid diagram rendering issue
+- Published first LinkedIn authority post (verification enforcement concept)
+- Published second LinkedIn authority post (CI as enforcement layer)
+- Remediated Trivy-reported OpenSSL vulnerability findings in the container base image
+- Restored passing vulnerability scan by applying latest OS security updates in the Docker build
+- Merged the Trivy remediation through protected branch PR workflow
+- Added technical teardown article under `docs/articles/secure-ml-pipeline-teardown.md`
+- Expanded repository authority assets with an architecture-focused long-form write-up
 
 ---
 
@@ -133,13 +131,12 @@ Transition from implementation to authority and extension:
 
 ## VIII. Next Step
 
-Begin authority-building and portfolio positioning:
+Continue authority-building:
 
 - publish technical teardown (architecture + security pipeline)
-- publish DevSecOps verification walkthrough (Cosign + SBOM)
-- create repository walkthrough content (GitHub + LinkedIn)
-- position project as a verifiable ML deployment reference
-- Extended Kubernetes productionization (ConfigMap, Secret, Ingress, scaling)
+- publish focused DevSecOps insights (Cosign, SBOM, CI enforcement)
+- create repository walkthrough content
+- strengthen GitHub + LinkedIn authority loop
 
 ---
 
@@ -156,9 +153,8 @@ Begin authority-building and portfolio positioning:
 - Image signing → Completed
 - Image verification → Completed
 - Deployment stage (Docker Compose) → Completed
-- Deployment validation (CI + local) → Completed
+- Deployment validation → Completed
 - Environment-based configuration → Completed
-- CI-specific deployment configuration → Completed
 
 ---
 
@@ -172,19 +168,18 @@ Begin authority-building and portfolio positioning:
 - Policy enforcement testing → Completed
 - CI stability and correctness → Completed
 - Repository finalization → Completed
-- Release creation (v1.0.0) → Completed
+- Release creation → Completed
 - Configuration strategy refinement → Completed
 - Kubernetes deployment → Completed (baseline)
 
 ---
 
----
-
 ### Phase 3 — Authority Building (In Progress)
 
-- Technical teardown article (this project as flagship) → Incomplete
-- DevSecOps content (Cosign, SBOM, secure pipelines) → In Progress
-- Repository positioning as reference implementation → In Progress
+- Technical teardown article → Completed
+- GitHub long-form article: secure ML pipeline architecture teardown → Completed
+- DevSecOps content → In Progress
+- Repository positioning → In Progress
 - LinkedIn + GitHub authority loop → In Progress
-- LinkedIn post published: verification must be enforced, not just present → Completed
-  Note: On hold since a related article was just published recently.
+- LinkedIn post 1: verification must be enforced → Completed
+- LinkedIn post 2: CI as enforcement layer → Completed
