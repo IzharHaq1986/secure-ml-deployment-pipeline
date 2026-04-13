@@ -9,3 +9,7 @@ venv/
 model/artifacts/*
 # Local environment configuration for Docker Compose
 .env
+# Local build artifacts
+kubeconform.tar.gz
+release-assets/
+touch

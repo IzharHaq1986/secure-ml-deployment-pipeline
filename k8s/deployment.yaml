@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secure-ml-deployment-pipeline
+  labels:
+    app: secure-ml-deployment-pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: secure-ml-deployment-pipeline
+  template:
+    metadata:
+      labels:
+        app: secure-ml-deployment-pipeline
+    spec:
+      containers:
+        - name: secure-ml-deployment-pipeline
+          image: ghcr.io/izharhaq1986/secure-ml-deployment-pipeline:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APP_ENV
+              value: "prod"
+            - name: PORT
+              value: "8000"
+            - name: MODEL_NAME
+              value: "fraud-detection-model"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

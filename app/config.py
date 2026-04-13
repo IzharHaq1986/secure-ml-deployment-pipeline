@@ -1,8 +1,10 @@
-""" Application configuration for the Secure ML Deployment Pipeline service.
+"""Application configuration for the Secure ML Deployment Pipeline service.
 
 This module centralizes environment-backed settings so startup behavior
 is predictable, validated, and easy to test.
 """
+
+from typing import Literal
 
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -13,6 +15,10 @@ class Settings(BaseSettings):
     Strongly typed application settings loaded from environment variables.
     """
 
+    app_env: Literal["local", "ci", "prod"] = Field(
+        default="local",
+        alias="APP_ENV",
+    )
     port: int = Field(default=8000, alias="PORT")
     debug: bool = Field(default=False, alias="DEBUG")
     model_name: str = Field(validation_alias="MODEL_NAME")
