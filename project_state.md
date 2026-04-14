@@ -131,6 +131,7 @@ Transition from implementation to authority and extension:
 - extended policy rules for additional actions
 - structured audit log persistence (file / external sink)
 - optional metrics and observability integration
+- Explicit pipeline artifact mapping (stage → output) in README (deferred documentation improvement)
 
 ---
 
