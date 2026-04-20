@@ -103,6 +103,7 @@ The project is now:
 - Finalized README presentation layer with stable architecture diagram rendering
 - Linked long-form technical articles from the repository entry point
 - Completed repository cleanup and merged final documentation updates into `main`
+- Published LinkedIn article: CI fragility in secure pipelines (flaky checks, timing issues, environment drift)
 
 ---
 
@@ -183,12 +184,13 @@ Continue authority-building and maintenance:
 
 - Technical teardown article → Completed
 - GitHub long-form article: secure ML pipeline architecture teardown → Completed
-- DevSecOps content → In Progress
+- DevSecOps content → Completed (verification, CI enforcement, failure behavior, CI fragility)
 - Repository positioning → In Progress
 - LinkedIn + GitHub authority loop → In Progress
 - LinkedIn post 1: verification must be enforced → Completed
 - LinkedIn post 2: CI as enforcement layer → Completed
 - LinkedIn post 3: failure of verification blocks deployment → Completed
+- LinkedIn article: CI fragility in secure pipelines → Completed
 
 ---
 
